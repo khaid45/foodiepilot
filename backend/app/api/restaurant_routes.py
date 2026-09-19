@@ -1,10 +1,13 @@
+from datetime import date, time
+from typing import Optional
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
 from app.models.restaurant import Restaurant
 from app.schemas.restaurant import RestaurantCreate, RestaurantResponse
-from typing import Optional
+from app.schemas.availability import AvailabilityResponse
 
 
 router = APIRouter(
@@ -81,6 +84,45 @@ def get_restaurants(
     return query.order_by(
         Restaurant.rating.desc()
     ).all()
+
+
+@router.get(
+    "/{restaurant_id}/availability",
+    response_model=AvailabilityResponse
+)
+def check_availability(
+    restaurant_id: int,
+    booking_date: date,
+    booking_time: time,
+    guests: int,
+    db: Session = Depends(get_db)
+):
+    restaurant = db.query(Restaurant).filter(
+        Restaurant.id == restaurant_id
+    ).first()
+
+    if not restaurant:
+        raise HTTPException(
+            status_code=404,
+            detail="Restaurant not found"
+        )
+
+    if guests < 1 or guests > 20:
+        raise HTTPException(
+            status_code=400,
+            detail="Guests must be between 1 and 20"
+        )
+
+    available = restaurant.available_tables >= guests
+
+    return {
+        "restaurant_id": restaurant.id,
+        "booking_date": booking_date,
+        "booking_time": booking_time,
+        "requested_guests": guests,
+        "available_tables": restaurant.available_tables,
+        "available": available
+    }
 
 
 @router.get("/{restaurant_id}", response_model=RestaurantResponse)

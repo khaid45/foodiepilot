@@ -36,15 +36,19 @@ def verify_password(
         hashed_password
     )
 
-
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
 
-    expire = datetime.now(timezone.utc) + timedelta(
+    now = datetime.now(timezone.utc)
+    expire = now + timedelta(
         minutes=ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
-    to_encode.update({"exp": expire})
+    to_encode.update({
+        "iat": now,
+        "exp": expire,
+        "jti": os.urandom(16).hex(),
+    })
 
     return jwt.encode(
         to_encode,

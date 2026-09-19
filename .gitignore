@@ -17,3 +17,5 @@ backend/.env
 # OS Files
 .DS_Store
 Thumbs.db
+# Generated vector database
+backend/chroma_db/
