@@ -72,6 +72,37 @@ def is_restaurant_discovery_request(message: str) -> bool:
     )
 
 
+def extract_current_turn_tool_messages(messages, current_message):
+    """
+    Return only tool messages generated after the current user's
+    message.
+
+    LangGraph conversation memory contains messages from previous
+    turns. We must not reuse those old tool results as current
+    restaurant cards.
+    """
+
+    current_user_index = None
+
+    # Find the latest user message matching the current request.
+    for index in range(len(messages) - 1, -1, -1):
+        message = messages[index]
+
+        if getattr(message, "type", None) != "human":
+            continue
+
+        content = getattr(message, "content", "")
+
+        if isinstance(content, str) and content == current_message:
+            current_user_index = index
+            break
+
+    if current_user_index is None:
+        return []
+
+    return messages[current_user_index + 1:]
+
+
 @router.post("/chat", response_model=AgentChatResponse)
 def agent_chat(
     request: AgentChatRequest,
@@ -84,6 +115,9 @@ def agent_chat(
     Restaurant search results are returned separately as structured
     data only when the user is explicitly performing restaurant
     discovery.
+
+    Only tool results generated during the current conversation turn
+    are exposed as restaurant cards.
     """
 
     try:
@@ -128,12 +162,20 @@ def agent_chat(
 
         restaurants = []
 
-        # Only expose restaurant cards for actual discovery/search
-        # requests. Booking, history, and cancellation requests should
-        # return an empty restaurants array.
+        # ------------------------------------------------------------
+        # IMPORTANT:
+        # Only expose restaurant cards for discovery requests.
+        # More importantly, only inspect tool messages belonging to
+        # THIS user turn, not the entire conversation history.
+        # ------------------------------------------------------------
         if is_restaurant_discovery_request(request.message):
 
-            for message in messages:
+            current_turn_messages = extract_current_turn_tool_messages(
+                messages,
+                request.message,
+            )
+
+            for message in current_turn_messages:
 
                 if getattr(message, "type", None) != "tool":
                     continue
@@ -193,7 +235,10 @@ def agent_chat(
                     ):
                         continue
 
-        # Remove duplicate restaurant cards while preserving order.
+        # ------------------------------------------------------------
+        # Remove duplicates while preserving the order returned by
+        # the current turn's tool calls.
+        # ------------------------------------------------------------
         unique_restaurants = []
         seen_ids = set()
 

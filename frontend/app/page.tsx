@@ -54,12 +54,78 @@ const cuisines = [
   },
 ];
 
-const restaurantImages = [
-  "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=85",
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85",
-];
+const restaurantImages: Record<number, string> = {
+  1: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85",
+  2: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=85",
+  3: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=900&q=85",
+  4: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=900&q=85",
+  5: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85",
+  6: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=85",
+  7: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=85",
+  8: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=900&q=85",
+  9: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85",
+  10: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85",
+  11: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=85",
+  12: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=900&q=85",
+  13: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85",
+  14: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",
+  15: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85",
+  16: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=85",
+  17: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=85",
+  18: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85",
+  19: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85",
+  20: "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=900&q=85",
+  21: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/biryani/biryani1.jpg",
+  22: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/biryani/biryani2.jpg",
+  23: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/biryani/biryani3.jpg",
+  24: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken1.jpg",
+  25: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice1.jpg",
+  26: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta1.jpg",
+  27: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken2.jpg",
+  28: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice2.jpg",
+  29: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dessert/dessert1.jpg",
+  30: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pizza/pizza1.jpg",
+  31: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dosa/dosa1.jpg",
+  32: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice3.jpg",
+  33: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dessert/dessert2.jpg",
+  34: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/burger/burger1.jpg",
+  35: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken3.jpg",
+  36: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice4.jpg",
+  37: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta2.jpg",
+  38: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken4.jpg",
+  39: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice5.jpg",
+  40: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dosa/dosa2.jpg",
+  41: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dosa/dosa3.jpg",
+  42: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice6.jpg",
+  43: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice7.jpg",
+  44: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken5.jpg",
+  45: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dessert/dessert3.jpg",
+  46: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice8.jpg",
+  47: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta3.jpg",
+  48: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice9.jpg",
+  49: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice10.jpg",
+  50: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/burger/burger2.jpg",
+  51: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken6.jpg",
+  52: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/samosa/samosa1.jpg",
+  53: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/burger/burger3.jpg",
+  54: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice11.jpg",
+  55: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/samosa/samosa2.jpg",
+  56: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/biryani/biryani4.jpg",
+  57: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice12.jpg",
+  58: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta4.jpg",
+  59: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice13.jpg",
+  60: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pizza/pizza2.jpg",
+  61: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice14.jpg",
+  62: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta5.jpg",
+  63: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice15.jpg",
+  64: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/butter-chicken/butter-chicken7.jpg",
+  65: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dessert/dessert4.jpg",
+  66: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/burger/burger4.jpg",
+  67: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pasta/pasta6.jpg",
+  68: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/rice/rice16.jpg",
+  69: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/pizza/pizza3.jpg",
+  70: "https://raw.githubusercontent.com/surhud004/Foodish/main/public/assets/images/dessert/dessert5.jpg",
+};
 
 const cities = [
   {
@@ -263,6 +329,7 @@ export default function Home() {
   const [showAllRestaurants, setShowAllRestaurants] = useState(false);
   const [restaurantsLoading, setRestaurantsLoading] = useState(true);
   const [restaurantsError, setRestaurantsError] = useState("");
+  const [selectedCity, setSelectedCity] = useState("Visakhapatnam");
 
   const suggestions = [
     "A romantic dinner near the beach",
@@ -275,9 +342,10 @@ export default function Home() {
       try {
         setRestaurantsLoading(true);
         setRestaurantsError("");
+        setShowAllRestaurants(false);
 
         const data = await getRestaurants({
-          location: "Visakhapatnam",
+          location: selectedCity,
         });
 
         setRestaurants(data);
@@ -287,13 +355,14 @@ export default function Home() {
             ? err.message
             : "Unable to load restaurants."
         );
+        setRestaurants([]);
       } finally {
         setRestaurantsLoading(false);
       }
     };
 
     loadRestaurants();
-  }, []);
+  }, [selectedCity]);
 
   const handleSearch = async () => {
     if (!query.trim() || loading) return;
@@ -408,12 +477,13 @@ export default function Home() {
               Bookings
             </Link>
 
-            <a
-              href="#concierge"
+            <button
+              type="button"
+              onClick={openConcierge}
               className="transition hover:text-[#b74720]"
             >
               AI Concierge
-            </a>
+            </button>
 
             <a
               href="#about"
@@ -499,12 +569,15 @@ export default function Home() {
                 Bookings
               </Link>
 
-              <a
-                href="#concierge"
-                onClick={() => setMenuOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  openConcierge();
+                }}
               >
                 AI Concierge
-              </a>
+              </button>
 
               <a
                 href="#about"
@@ -756,8 +829,8 @@ export default function Home() {
           <div className="relative">
             <div className="overflow-hidden rounded-[28px]">
               <img
-                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=90"
-                alt="Elegant restaurant dining room"
+                src="/images/hero-dining-quote.png"
+                alt="Warm restaurant dining scene with a handwritten dining quote"
                 className="h-[500px] w-full object-cover lg:h-[560px]"
               />
             </div>
@@ -843,6 +916,9 @@ export default function Home() {
 
             <h2 className="editorial-heading mt-3 text-[38px] sm:text-[46px]">
               Popular Restaurants
+              <span className="ml-2 font-[var(--font-dm-sans)] text-[11px] font-medium tracking-normal text-[#8c837a]">
+                · {selectedCity}
+              </span>
             </h2>
           </div>
 
@@ -905,9 +981,8 @@ export default function Home() {
                 <div className="relative h-[215px] overflow-hidden">
                   <img
                     src={
-                      restaurantImages[
-                        index % restaurantImages.length
-                      ]
+                      restaurantImages[restaurant.id] ??
+                      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85"
                     }
                     alt={restaurant.name}
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
@@ -968,7 +1043,10 @@ export default function Home() {
       {/* AI DINING COMPANION                                              */}
       {/* ================================================================ */}
 
-      <section className="border-y border-[#ded5ca] bg-[#f3ece3]">
+      <section
+        id="about"
+        className="border-y border-[#ded5ca] bg-[#f3ece3]"
+      >
         <div className="mx-auto max-w-[1440px] px-6 py-16 lg:px-12 lg:py-20">
           <div className="grid items-stretch gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
             {/* Image */}
@@ -1095,7 +1173,7 @@ export default function Home() {
       {/* ================================================================ */}
 
       <section
-        id="about"
+        id="cities"
         className="mx-auto max-w-[1440px] px-6 py-16 lg:px-12 lg:py-20"
       >
         <div className="flex items-end justify-between">
@@ -1116,21 +1194,54 @@ export default function Home() {
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {cities.map((city) => (
-            <button key={city.name} className="group text-left">
-              <div className="h-[125px] overflow-hidden rounded-[12px]">
-                <img
-                  src={city.image}
-                  alt={city.name}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
+          {cities.map((city) => {
+            const isSelected = selectedCity === city.name;
 
-              <p className="mt-3 font-serif text-[17px]">
-                {city.name}
-              </p>
-            </button>
-          ))}
+            return (
+              <button
+                key={city.name}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => {
+                  setSelectedCity(city.name);
+                  document
+                    .getElementById("popular")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`group text-left transition ${
+                  isSelected ? "text-[#b74720]" : "text-[#171513]"
+                }`}
+              >
+                <div
+                  className={`h-[125px] overflow-hidden rounded-[12px] border-2 transition ${
+                    isSelected
+                      ? "border-[#b74720] shadow-[0_10px_30px_rgba(183,71,32,0.14)]"
+                      : "border-transparent"
+                  }`}
+                >
+                  <img
+                    src={city.image}
+                    alt={city.name}
+                    className={`h-full w-full object-cover transition duration-500 group-hover:scale-105 ${
+                      isSelected ? "scale-105" : ""
+                    }`}
+                  />
+                </div>
+
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <p className="font-serif text-[17px]">
+                    {city.name}
+                  </p>
+
+                  {isSelected && (
+                    <span className="rounded-full bg-[#f2dfd5] px-2 py-1 text-[7px] font-semibold uppercase tracking-[0.12em] text-[#b74720]">
+                      Selected
+                    </span>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </section>
 

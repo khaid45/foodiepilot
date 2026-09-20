@@ -159,28 +159,27 @@ export default function AIConcierge() {
       {/* FLOATING AI BUTTON                                           */}
       {/* ============================================================ */}
 
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          aria-label="Open FoodiePilot AI Concierge"
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-3 rounded-full border border-[#d9cec2] bg-[#fffdf9] px-4 py-3 text-[#29241f] shadow-[0_12px_40px_rgba(27,24,21,0.16)] transition duration-300 hover:-translate-y-1 hover:border-[#b74720] hover:shadow-[0_16px_45px_rgba(27,24,21,0.2)]"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#b74720] text-white">
-            <SparkleIcon />
-          </span>
+{!open && (
+  <button
+    onClick={() => setOpen(true)}
+    aria-label="Open FoodiePilot AI Concierge"
+    className="fixed top-[84px] right-3 sm:top-auto sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 rounded-full border border-[#d9cec2] bg-[#fffdf9] px-4 py-3 text-[#29241f] shadow-[0_12px_40px_rgba(27,24,21,0.16)] transition duration-300 hover:-translate-y-1 hover:border-[#b74720] hover:shadow-[0_16px_45px_rgba(27,24,21,0.2)]"
+  >
+    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#b74720] text-white">
+      <SparkleIcon />
+    </span>
 
-          <span className="hidden text-left sm:block">
-            <span className="block text-[10px] font-semibold">
-              Ask FoodiePilot
-            </span>
+    <span className="hidden text-left sm:block">
+      <span className="block text-[10px] font-semibold">
+        Ask FoodiePilot
+      </span>
 
-            <span className="mt-0.5 block text-[8px] text-[#8c837a]">
-              Your AI dining concierge
-            </span>
-          </span>
-        </button>
-      )}
-
+      <span className="mt-0.5 block text-[8px] text-[#8c837a]">
+        Your AI dining concierge
+      </span>
+    </span>
+  </button>
+)}
       {/* ============================================================ */}
       {/* AI CONCIERGE PANEL                                           */}
       {/* ============================================================ */}
