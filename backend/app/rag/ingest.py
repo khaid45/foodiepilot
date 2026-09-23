@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
 from app.models.restaurant import Restaurant
-from app.rag.vector_store import vector_store
+from app.rag.vector_store import add_restaurant_embeddings
 
 
 def build_restaurant_document(restaurant: Restaurant) -> str:
@@ -28,6 +28,7 @@ def ingest_restaurants():
 
         documents = []
         ids = []
+        restaurant_ids = []
         metadatas = []
 
         for restaurant in restaurants:
@@ -39,6 +40,10 @@ def ingest_restaurants():
                 f"restaurant_{restaurant.id}"
             )
 
+            restaurant_ids.append(
+                restaurant.id
+            )
+
             metadatas.append({
                 "restaurant_id": restaurant.id,
                 "name": restaurant.name,
@@ -48,15 +53,16 @@ def ingest_restaurants():
                 "price_range": restaurant.price_range,
             })
 
-        vector_store.add_texts(
+        add_restaurant_embeddings(
+            ids=ids,
+            restaurant_ids=restaurant_ids,
             texts=documents,
             metadatas=metadatas,
-            ids=ids,
         )
 
         print(
             f"Successfully ingested "
-            f"{len(restaurants)} restaurants into ChromaDB."
+            f"{len(restaurants)} restaurants into PostgreSQL pgvector."
         )
 
     finally:

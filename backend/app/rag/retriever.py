@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 
 from app.database.database import SessionLocal
 from app.models.restaurant import Restaurant
-from app.rag.vector_store import vector_store
+from app.rag.vector_store import similarity_search
 from app.rag.generator import llm
 
 
-# ChromaDB returns a distance score where lower values indicate
+# pgvector returns cosine distance where lower values indicate
 # stronger semantic similarity.
 RAG_DISTANCE_THRESHOLD = 0.75
 
@@ -28,11 +28,13 @@ def search_restaurants(
     Hybrid restaurant retrieval.
 
     PostgreSQL applies structured filters first.
-    ChromaDB provides semantic ranking over a larger candidate set.
+    PostgreSQL + pgvector provides semantic ranking over
+    a larger candidate set.
+
     Only restaurants approved by PostgreSQL are returned.
 
-    ChromaDB distance scores above the configured relevance
-    threshold are discarded.
+    pgvector cosine distance scores above the configured
+    relevance threshold are discarded.
     """
 
     query = query.strip()
@@ -53,12 +55,16 @@ def search_restaurants(
 
         if location:
             db_query = db_query.filter(
-                Restaurant.location.ilike(f"%{location.strip()}%")
+                Restaurant.location.ilike(
+                    f"%{location.strip()}%"
+                )
             )
 
         if cuisine:
             db_query = db_query.filter(
-                Restaurant.cuisine.ilike(f"%{cuisine.strip()}%")
+                Restaurant.cuisine.ilike(
+                    f"%{cuisine.strip()}%"
+                )
             )
 
         if min_rating is not None:
@@ -83,11 +89,11 @@ def search_restaurants(
         }
 
         # ---------------------------------------------------------
-        # 2. Broad semantic search in ChromaDB
+        # 2. Broad semantic search using pgvector
         # ---------------------------------------------------------
 
-        semantic_results = vector_store.similarity_search_with_score(
-            query,
+        semantic_results = similarity_search(
+            query=query,
             k=min(max(k * 5, 20), 100),
         )
 
@@ -97,8 +103,11 @@ def search_restaurants(
 
         results = []
 
-        for document, score in semantic_results:
-            restaurant_id = document.metadata.get("restaurant_id")
+        for result in semantic_results:
+            metadata = result.get("metadata") or {}
+
+            restaurant_id = metadata.get("restaurant_id")
+            score = result.get("score")
 
             if restaurant_id is None:
                 continue
@@ -109,7 +118,7 @@ def search_restaurants(
             except (TypeError, ValueError):
                 continue
 
-            # Lower Chroma distance = stronger similarity.
+            # Lower pgvector cosine distance = stronger similarity.
             if score > RAG_DISTANCE_THRESHOLD:
                 continue
 
@@ -118,8 +127,8 @@ def search_restaurants(
 
             results.append(
                 {
-                    "content": document.page_content,
-                    "metadata": document.metadata,
+                    "content": result["content"],
+                    "metadata": metadata,
                     "score": score,
                 }
             )
@@ -222,7 +231,10 @@ User Request:
     answer = _extract_response_text(response.content)
 
     if not answer:
-        answer = "I found matching restaurants, but I couldn't generate a response."
+        answer = (
+            "I found matching restaurants, "
+            "but I couldn't generate a response."
+        )
 
     return {
         "answer": answer,
